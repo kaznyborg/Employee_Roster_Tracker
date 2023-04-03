@@ -1,12 +1,14 @@
 const db = require("./connection");
 
-function viewAllDepartments() {
+async function viewAllDepartments() {
     try {
         const departments =
-        await db.promise().query('SELECT * FROM department')
+        await db.query('SELECT * FROM department')
 
-    return departments[0]
+    return departments
     } catch (err) {
     console.log(err)
     }
 }
+
+module.exports = {viewAllDepartments}
