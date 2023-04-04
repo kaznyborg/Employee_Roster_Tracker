@@ -1,5 +1,6 @@
-const db = require("./connection");
 const inquirer = require("inquirer");
+const db = require("./connection");
+
 const {viewAllRoles} = require("./roles");
 
 async function viewAllEmployees() {
@@ -14,16 +15,11 @@ async function viewAllEmployees() {
 
 //create addEmployee
 
-async function addEmployee(){
+async function addEmployee() {
     try {
         const roles = await viewAllRoles();
         const employee = await viewAllEmployees();
-        const {
-            first_name,
-            last_name,
-            role,
-            manager
-        } = await inquirer.prompt([
+        const {first_name, last_name, role, manager} = await inquirer.prompt([
             {
                 type:"input",
                 name:"first_name",
@@ -75,10 +71,49 @@ async function addEmployee(){
 
 //create updateEmployee
 
-
+async function updateEmployee() {
+    try {
+        const employeesDb = await viewAllEmployees();
+        const roles = await viewAllRoles();
+        const {
+            employee,
+            first_name,
+            last_name,
+            newRole
+        } = await inquirer.prompt([
+            {
+                type:"list",
+                name:"employee",
+                message:"Which employee will be updated?",
+                choices: employeesDb.map((e) => {
+                    return {
+                        name:`${e.first_name}, ${e.last_name}`,
+                        value: e.id,
+                    };
+                }),
+            },
+            {
+                type:"list",
+                name:"newRole",
+                message:"Select the employee's new role",
+                choices: roles.map((role) => {
+                    return {
+                        name: role.title,
+                        value: role.id,
+                    };
+                }),
+            },
+        ]);
+        await db.query(`UPDATE employee SET role_id = ${newRole} WHERE id= ${employee}`);
+        const updatedEmployee = await viewAllEmployees();
+        return await viewAllEmployees();
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 //create removeEmployee
 
 
 
-module.exports = {viewAllEmployees, addEmployee}
+module.exports = {viewAllEmployees, addEmployee, updateEmployee}
