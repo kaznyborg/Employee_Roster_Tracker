@@ -3,12 +3,7 @@ challenge 12
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+I want to be able to view and manage the departments, roles, and employees in my company.
 
 ## Table of Contents 
 
@@ -27,7 +22,9 @@ used mysql to run these to create the necessary tables.
 The user will then use the terminal to enter node index.js to initiate the program. There will be a series of prompts to walk the user 
 through the options; view departments, view roles, view employees, add role, add department, add employee, or update employee.
 
-![alt text](assets/images/screenshot.png)
+[Video]https://drive.google.com/file/d/1BeZ8PuXiVd_HmcUT8OXBsJzaUxlrnUJR/view 
+![program startup](./assets/images/01.png)
+![program execution](./assets/images/02.png)
 
 ## Credits
 
