@@ -55,6 +55,27 @@ async function addRole() {
 
 //create removeRole
 
+async function deleteRole() {
+    try{
+        const roleList = await viewAllRoles();
+        const {id} = await inquirer.prompt([
+            {
+                type:"list",
+                message:"Which role have been removed?",
+                name:"id",
+                choices: roleList.map((role) => {
+                    return {
+                        name: role.name,
+                        value: role.id
+                    };
+                }),
+            },
+        ]);
+        await db.query(`DELETE FROM roles WHERE id = ${id}`);
+        return await viewAllRoles();
+    } catch (err){
+        console.log (err);
+    }
+}
 
-
-module.exports = {viewAllRoles, addRole}
+module.exports = {viewAllRoles, addRole, deleteRole}

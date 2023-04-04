@@ -36,6 +36,27 @@ async function addDepartment(){
 
 //create removeDepartment
 
+async function deleteDepartment(){
+    try{
+        const viewDepartments = await viewAllDepartments();
+        const {id} = await inquirer.prompt([
+            {
+                type:"list",
+                message:"Which of these departments have been removed?",
+                name:"id",
+                choices: viewDepartments.map((department) => {
+                return {
+                    name: department.name,
+                    value: department.id
+                };
+                }),
+            },
+        ]);
+        await db.query(`DELETE FROM department WHERE id = ${id}`);
+        return await viewAllDepartments();
+    } catch (err){
+        console.log (err);
+    }
+}
 
-
-module.exports = {viewAllDepartments, addDepartment}
+module.exports = {viewAllDepartments, addDepartment, deleteDepartment}

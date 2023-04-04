@@ -43,7 +43,7 @@ async function addEmployee() {
             },
             {
                 type:"list",
-                name:"Manager",
+                name:"manager",
                 message:"Who is the employee's manager?",
                 choices: [
                     ...employee.map((e) => {
